@@ -1,0 +1,12 @@
+.response-card {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 8px;
+  background: #f6faff;
+  border: 1px solid #d6e4ff;
+}
+
+.response-card p {
+  font-size: 15px;
+  line-height: 1.6;
+}

@@ -1,0 +1,16 @@
+.timeline {
+    margin-top: 20px;
+}
+
+.timeline ul {
+    list-style: none;
+    padding: 0;
+}
+
+.timeline li {
+    padding: 5px 0;
+}
+
+.timeline .fail {
+    color: #ff4d4f;
+}

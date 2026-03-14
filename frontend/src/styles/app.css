@@ -1,0 +1,36 @@
+.app-page {
+    min-height: 100vh;
+    background: #f4f6f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Inter, system-ui, Arial, sans-serif;
+}
+
+.app-container {
+    width: 600px;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.app-title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.loading-text {
+    margin-top: 15px;
+    color: #555;
+}
+
+.retry-button {
+    margin-top: 16px;
+    padding: 8px 18px;
+    background: #ff4d4f;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
