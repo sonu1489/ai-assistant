@@ -22,11 +22,11 @@ try {
 
     setData(res);
     setLoading(false);
-  } catch (error) {
+  } catch (error: any) {
     setData({
-      status: "error",
-      response: "errorData.response",
-      logs: ["Network error: could not reach backend"]    });
+       status: error.status,
+    response: error.response,
+    logs: error.logs, });
     setLoading(false);
 
   };
