@@ -19,7 +19,7 @@ export default function QueryInput({ onSubmit, loading }: QueryInputProps) {
         id="query"
         name="query"
         className="query-input"
-        placeholder="Describe your issue or question..."
+        placeholder="Ask about weather, order and account..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
          onKeyDown={(e) => {
