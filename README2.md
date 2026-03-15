@@ -6,11 +6,19 @@
                       │
                       ▼
          ┌─────────────────────────┐
-         │ askAssistant() API Call │
-         │ POST /api/assistant     │
-         │ Headers:                │
-         │  - Content-Type: json   │
-         │  - X-API-Key            │
+         │ ChatInput calls          │
+         │ askAssistant()           │
+         └─────────────┬───────────┘
+                      │
+                      ▼
+         ┌─────────────────────────┐
+         │ Axios Interceptor        │
+         │ - Base URL from .env     │
+         │ - Adds headers:         │
+         │   Content-Type, X-API-Key│
+         │ - Handles GET/POST body │
+         │ - Throws error if backend│
+         │   response is not OK     │
          └─────────────┬───────────┘
                       │
                       ▼
