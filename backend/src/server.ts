@@ -4,6 +4,7 @@ import helmet from "helmet";
 import dotenv from "dotenv";
 import rateLimit from "express-rate-limit";
 import { runAssistant } from "./services/assistant.service";
+import { errorResponse } from "./utils/response";
 
 dotenv.config();
 
@@ -41,11 +42,7 @@ const limiter = rateLimit({
     max: 10, // max 10 requests per second
     standardHeaders: true,
     legacyHeaders: false,
-    message: {
-        status: "error",
-        response: "Too many requests. Please slow down.",
-        logs: ["Rate limit exceeded"]
-    }
+    message: errorResponse("Too many requests. Please slow down.", ["Rate limit exceeded"])
 });
 
 app.use("/api/assistant", limiter);
@@ -60,11 +57,9 @@ app.use("/api", (req, res, next) => {
     const apiKey = req.headers["x-api-key"];
 
     if (!apiKey || apiKey !== process.env.API_KEY) {
-        return res.status(401).json({
-            status: "error",
-            response: "Unauthorized request",
-            logs: ["Invalid or missing API key"]
-        });
+        return res.status(401).json(
+            errorResponse("Unauthorized request", ["Invalid or missing API key"])
+        );
     }
 
     next();
@@ -78,11 +73,9 @@ Content-Type Validation
 app.use("/api", (req, res, next) => {
 
     if (req.method === "POST" && req.headers["content-type"] !== "application/json") {
-        return res.status(415).json({
-            status: "error",
-            response: "Content-Type must be application/json",
-            logs: ["Invalid content type"]
-        });
+        return res.status(415).json(
+            errorResponse("Content-Type must be application/json", ["Invalid content type"])
+        );
     }
 
     next();
@@ -99,21 +92,16 @@ app.post("/api/assistant", async (req, res) => {
         const { query } = req.body;
 
         if (!query) {
-            return res.status(400).json({
-                status: "error",
-                response: "Message is required",
-                logs: ["Invalid request: query missing"]
-            });
+            return res.status(400).json(
+                errorResponse("Message is required", ["Invalid request: query missing"])
+            );
         }
 
         const result = await runAssistant(query);
         res.status(200).json(result);
     } catch (error) {
-        res.status(500).json({
-            status: "error",
-            response: "Internal server error",
-            logs: [error instanceof Error ? error.message : String(error)]
-        });
+        const message = error instanceof Error ? error.message : String(error);
+        res.status(500).json(errorResponse("Internal server error", [message]));
     }
 });
 
